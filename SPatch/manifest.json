@@ -1,16 +1,16 @@
 {
     "manifest_version": 3,
-    "name": "Saleswarp Patch",
+    "name": "Zumiez Patch",
     "short_name": "Patch",
-    "version": "1.0.0",
-    "description": "Patch for saleswarp website",
+    "version": "1.1",
+    "description": "Patch for zumiez website",
     "icons": {
         "48": "icon.png"
     },
     "content_scripts": [
         {
             "matches": [
-                "https://www.website.com/*"
+                "https://www.zumiez.com/*"
             ],
             "js": [
                 "script.js"
@@ -18,6 +18,6 @@
         }
     ],
     "host_permissions": [
-        "https://www.website.com/"
+        "https://www.zumiez.com/"
     ]
 }
