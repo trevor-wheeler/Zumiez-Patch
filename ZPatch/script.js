@@ -1,6 +1,7 @@
 
 // Variables
 let layoutWrapper = undefined;
+let totalCount = undefined;
 
 const styleTag = document.createElement('style');
 document.head.appendChild(styleTag);
@@ -32,12 +33,33 @@ const observer = new MutationObserver((mutations) => {
                             layoutWrapper = undefined;
                         }
         
-                        // If content is loaded clear interval and add the searchbar 
+                        // If content is loaded clear interval and add the searchbar + other elements
                         if (layoutWrapper) {
                             clearInterval(interval);
+
+                            let interval2 = setInterval(() => {
+                                // Get total count
+                                totalCount = layoutWrapper.querySelector('.PackageDealProductList-TotalCount:not(.Loading)').textContent.replace(/[^\d]/g, '');
+
+                                // If total count is loaded clear interval
+                                if (totalCount !== '') {
+                                    clearInterval(interval2);
+                                }
+                            }, 100);
+
+                            // Create loaders
+                            let loader = document.createElement('div');
+                            loader.className = 'Loader Loading';
+                            loader.innerHTML = '<div class="Loader-Scale "><div class="Loader-Main"><span></span></div></div>';
+                            document.querySelector('.CategoryFilterOverlay-Wrapper').appendChild(loader);
+                            let itemsFoundLoader = document.createElement('div');
+                            itemsFoundLoader.className = 'PackageDealProductList-TotalCount Loading';
+                            itemsFoundLoader.innerHTML = '<span class="TextPlaceholder TextPlaceholder_length_short "></span>';
+                            layoutWrapper.appendChild(itemsFoundLoader);
+
+                            // Create Searchbar
                             let searchBar = document.createElement('input');
                             layoutWrapper.appendChild(searchBar);
-                            
                             // Create searchbar functionality
                             searchFunctionality(searchBar);
                             
@@ -46,18 +68,12 @@ const observer = new MutationObserver((mutations) => {
                             loadingProductGrid.className = 'ProductListPage Loading';
                             document.querySelector('.PackageDealProductList_layout_grid').appendChild(loadingProductGrid);
                             loadingProductGrid.innerHTML = `<li class="ProductListPage-Offset"></li><li class="ProductCard ProductCard_layout_grid "><button class="ProductCard-Link "><div class="ProductCard-LinkInnerWrapper"><div class="ProductCard-FigureReview"><figure class="ProductCard-Figure"><div class="ProductLabels"></div><div class="Image Image_ratio_custom Image_imageStatus_image_not_specified Image_isPlaceholder ProductCard-Picture   Image-WidthFull Image-HeightFull"></div><img alt="undefined - " src="" loading="lazy" style="display: none;"></figure></div><div class="ProductCard-Content"><p class="ProductCard-Name"><span class="TextPlaceholder TextPlaceholder_length_medium "></span></p><span class="TextPlaceholder TextPlaceholder_length_short "></span></div><div class="ProductCard-VisibleOnHover"></div></div></button><div class="ProductCard-AdditionalContent"></div></li><li class="ProductCard ProductCard_layout_grid "><button class="ProductCard-Link "><div class="ProductCard-LinkInnerWrapper"><div class="ProductCard-FigureReview"><figure class="ProductCard-Figure"><div class="ProductLabels"></div><div class="Image Image_ratio_custom Image_imageStatus_image_not_specified Image_isPlaceholder ProductCard-Picture   Image-WidthFull Image-HeightFull"></div><img alt="undefined - " src="" loading="lazy" style="display: none;"></figure></div><div class="ProductCard-Content"><p class="ProductCard-Name"><span class="TextPlaceholder TextPlaceholder_length_medium "></span></p><span class="TextPlaceholder TextPlaceholder_length_short "></span></div><div class="ProductCard-VisibleOnHover"></div></div></button><div class="ProductCard-AdditionalContent"></div></li><li class="ProductCard ProductCard_layout_grid "><button class="ProductCard-Link "><div class="ProductCard-LinkInnerWrapper"><div class="ProductCard-FigureReview"><figure class="ProductCard-Figure"><div class="ProductLabels"></div><div class="Image Image_ratio_custom Image_imageStatus_image_not_specified Image_isPlaceholder ProductCard-Picture   Image-WidthFull Image-HeightFull"></div><img alt="undefined - " src="" loading="lazy" style="display: none;"></figure></div><div class="ProductCard-Content"><p class="ProductCard-Name"><span class="TextPlaceholder TextPlaceholder_length_medium "></span></p><span class="TextPlaceholder TextPlaceholder_length_short "></span></div><div class="ProductCard-VisibleOnHover"></div></div></button><div class="ProductCard-AdditionalContent"></div></li><li class="ProductCard ProductCard_layout_grid "><button class="ProductCard-Link "><div class="ProductCard-LinkInnerWrapper"><div class="ProductCard-FigureReview"><figure class="ProductCard-Figure"><div class="ProductLabels"></div><div class="Image Image_ratio_custom Image_imageStatus_image_not_specified Image_isPlaceholder ProductCard-Picture   Image-WidthFull Image-HeightFull"></div><img alt="undefined - " src="" loading="lazy" style="display: none;"></figure></div><div class="ProductCard-Content"><p class="ProductCard-Name"><span class="TextPlaceholder TextPlaceholder_length_medium "></span></p><span class="TextPlaceholder TextPlaceholder_length_short "></span></div><div class="ProductCard-VisibleOnHover"></div></div></button><div class="ProductCard-AdditionalContent"></div></li><li class="ProductCard ProductCard_layout_grid "><button class="ProductCard-Link "><div class="ProductCard-LinkInnerWrapper"><div class="ProductCard-FigureReview"><figure class="ProductCard-Figure"><div class="ProductLabels"></div><div class="Image Image_ratio_custom Image_imageStatus_image_not_specified Image_isPlaceholder ProductCard-Picture   Image-WidthFull Image-HeightFull"></div><img alt="undefined - " src="" loading="lazy" style="display: none;"></figure></div><div class="ProductCard-Content"><p class="ProductCard-Name"><span class="TextPlaceholder TextPlaceholder_length_medium "></span></p><span class="TextPlaceholder TextPlaceholder_length_short "></span></div><div class="ProductCard-VisibleOnHover"></div></div></button><div class="ProductCard-AdditionalContent"></div></li><li class="ProductCard ProductCard_layout_grid "><button class="ProductCard-Link "><div class="ProductCard-LinkInnerWrapper"><div class="ProductCard-FigureReview"><figure class="ProductCard-Figure"><div class="ProductLabels"></div><div class="Image Image_ratio_custom Image_imageStatus_image_not_specified Image_isPlaceholder ProductCard-Picture   Image-WidthFull Image-HeightFull"></div><img alt="undefined - " src="" loading="lazy" style="display: none;"></figure></div><div class="ProductCard-Content"><p class="ProductCard-Name"><span class="TextPlaceholder TextPlaceholder_length_medium "></span></p><span class="TextPlaceholder TextPlaceholder_length_short "></span></div><div class="ProductCard-VisibleOnHover"></div></div></button><div class="ProductCard-AdditionalContent"></div></li><li class="ProductCard ProductCard_layout_grid "><button class="ProductCard-Link "><div class="ProductCard-LinkInnerWrapper"><div class="ProductCard-FigureReview"><figure class="ProductCard-Figure"><div class="ProductLabels"></div><div class="Image Image_ratio_custom Image_imageStatus_image_not_specified Image_isPlaceholder ProductCard-Picture   Image-WidthFull Image-HeightFull"></div><img alt="undefined - " src="" loading="lazy" style="display: none;"></figure></div><div class="ProductCard-Content"><p class="ProductCard-Name"><span class="TextPlaceholder TextPlaceholder_length_medium "></span></p><span class="TextPlaceholder TextPlaceholder_length_short "></span></div><div class="ProductCard-VisibleOnHover"></div></div></button><div class="ProductCard-AdditionalContent"></div></li><li class="ProductCard ProductCard_layout_grid "><button class="ProductCard-Link "><div class="ProductCard-LinkInnerWrapper"><div class="ProductCard-FigureReview"><figure class="ProductCard-Figure"><div class="ProductLabels"></div><div class="Image Image_ratio_custom Image_imageStatus_image_not_specified Image_isPlaceholder ProductCard-Picture   Image-WidthFull Image-HeightFull"></div><img alt="undefined - " src="" loading="lazy" style="display: none;"></figure></div><div class="ProductCard-Content"><p class="ProductCard-Name"><span class="TextPlaceholder TextPlaceholder_length_medium "></span></p><span class="TextPlaceholder TextPlaceholder_length_short "></span></div><div class="ProductCard-VisibleOnHover"></div></div></button><div class="ProductCard-AdditionalContent"></div></li>`
-                            
-                            // Create loader
-                            let loader = document.createElement('div');
-                            loader.className = 'Loader Loading';
-                            loader.innerHTML = '<div class="Loader-Scale "><div class="Loader-Main"><span></span></div></div>';
-                            document.querySelector('.CategoryFilterOverlay-Wrapper').appendChild(loader);
 
                             // Create no results page
                             let noResults = document.createElement('p');
                             noResults.textContent = 'No results'
-                            noResults.style.paddingLeft = "12px";
-                            noResults.style.display = "none";
+                            noResults.style.paddingLeft = '12px';
+                            noResults.style.display = 'none';
                             noResults.id = 'no-results';
                             document.querySelector('.PackageDealProductList_layout_grid').appendChild(noResults);
 
@@ -108,13 +124,13 @@ function searchFunctionality(searchBar) {
             resetPage().then(() => {
                 // If query is empty do not submit
                 if (searchBar.value !== '') {
-                    console.log(searchBar.value);
                     // Then submit query
                     submit(searchBar.value);
                 }
                 else {
                     loading(false);
                     togglePagination(true);
+                    document.querySelector('.PackageDealProductList-TotalCount:not(.Loading)').textContent = totalCount + ' items found'
                 }
             });
 
@@ -141,6 +157,7 @@ function resetPage() {
                 }
                 // If back button is not clickable, clear interval and resolve promise
                 catch (error) {
+                    unhideItems(popupContent);
                     clearInterval(interval);
                     resolve();
                 }
@@ -175,11 +192,18 @@ function submit(query) {
                         toggleNoResults(true);
                         console.log('No results');
 
+                        // Update items found
+                        popupContent.querySelector('.PackageDealProductList-TotalCount:not(.Loading)').textContent = '0 items found'
+
                         loading(false);
                     }
                 }
                 else {
+                    // End loading cycle
                     loading(false);
+                    
+                    // Update items found
+                    popupContent.querySelector('.PackageDealProductList-TotalCount:not(.Loading)').textContent = '1 item found'
                 }
             });
         }
@@ -195,6 +219,7 @@ function parseProducts(popupContent, query) {
 
         // For each product
         itemList.forEach(item => {
+
             // Get the SKU number from the img source
             let sku = item.querySelector('.ProductCard-Picture').firstChild.getAttribute('src').slice(36, 42);
 
@@ -213,6 +238,16 @@ function parseProducts(popupContent, query) {
     });
 }
 
+function unhideItems(popupContent) {
+    let itemList = popupContent.querySelector('.ProductListPage:not(.Loading)').querySelectorAll('.ProductCard');
+
+    itemList.forEach(item => {
+        if (item.style.display === 'none') {
+            item.style.display = 'flex';
+        }
+    })
+}
+
 function loading(isLoading) {
 
     if (isLoading) {
@@ -229,6 +264,12 @@ function loading(isLoading) {
             .Loader.Loading {
                 display: block !important
             }
+            .PackageDealProductList-TotalCount {
+                display: none !important
+            }
+            .PackageDealProductList-TotalCount.Loading {
+                display: block !important
+            }
         `
     }
     else {
@@ -243,6 +284,12 @@ function loading(isLoading) {
                 display: block !important
             }
             .Loader.Loading {
+                display: none !important
+            }
+            .PackageDealProductList-TotalCount {
+                display: block !important
+            }
+            .PackageDealProductList-TotalCount.Loading {
                 display: none !important
             }
         `
