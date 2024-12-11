@@ -8,6 +8,9 @@ document.head.appendChild(styleTag);
 const paginationStyle = document.createElement('style');
 document.head.appendChild(paginationStyle);
 
+const noResultsStyle = document.createElement('style');
+document.head.appendChild(noResultsStyle);
+
 loading(false);
 
 // Observer that detects when the bundle builder popup opens or closes 
@@ -49,6 +52,15 @@ const observer = new MutationObserver((mutations) => {
                             loader.className = 'Loader Loading';
                             loader.innerHTML = '<div class="Loader-Scale "><div class="Loader-Main"><span></span></div></div>';
                             document.querySelector('.CategoryFilterOverlay-Wrapper').appendChild(loader);
+
+                            // Create no results page
+                            let noResults = document.createElement('p');
+                            noResults.textContent = 'No results'
+                            noResults.style.paddingLeft = "12px";
+                            noResults.style.display = "none";
+                            noResults.id = 'no-results';
+                            document.querySelector('.PackageDealProductList_layout_grid').appendChild(noResults);
+
                         }
                     }, 100);
                 }
@@ -62,6 +74,9 @@ const observer = new MutationObserver((mutations) => {
 
                     // Reset pagination to default
                     togglePagination(true);
+
+                    // Hide no results page
+                    toggleNoResults(false);
                 }
             });
         }
@@ -82,6 +97,9 @@ function searchFunctionality(searchBar) {
         if (event.key === 'Enter') {
             // Toggle loading animation
             loading(true);
+
+            // Hide no results page
+            toggleNoResults(false);
 
             // Remove pagination
             togglePagination(false);
@@ -153,7 +171,10 @@ function submit(query) {
                     }
                     // If there are no more pages and product was not found, log "No results"
                     catch (error) {
+                        // Display no results page
+                        toggleNoResults(true);
                         console.log('No results');
+
                         loading(false);
                     }
                 }
@@ -239,6 +260,23 @@ function togglePagination(isToggled) {
     else {
         paginationStyle.textContent = `
             .Pagination {
+                display: none !important;
+            }
+        `
+    }
+}
+
+function toggleNoResults(isToggled) {
+    if (isToggled) {
+        noResultsStyle.textContent = `
+            #no-results {
+                display: block !important;
+            }
+        `
+    }
+    else {
+        noResultsStyle.textContent = `
+            #no-results {
                 display: none !important;
             }
         `
