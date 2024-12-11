@@ -220,8 +220,15 @@ function parseProducts(popupContent, query) {
         // For each product
         itemList.forEach(item => {
 
+            let sku = undefined;
+
             // Get the SKU number from the img source
-            let sku = item.querySelector('.ProductCard-Picture').firstChild.getAttribute('src').slice(36, 42);
+            if (window.location.hostname === 'www.zumiez.com') {
+                sku = item.querySelector('.ProductCard-Picture').firstChild.getAttribute('src').slice(36, 42);
+            }
+            else if (window.location.hostname === 'www.zumiez.ca') {
+                sku = item.querySelector('.ProductCard-Picture').firstChild.getAttribute('src').slice(35, 41);
+            }
 
             // If the SKU number of the product does not match the search query, hide it from the results
             if (query !== sku) {

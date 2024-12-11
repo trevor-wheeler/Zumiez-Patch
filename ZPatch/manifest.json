@@ -2,7 +2,7 @@
     "manifest_version": 3,
     "name": "Zumiez Patch",
     "short_name": "Patch",
-    "version": "1.2.1",
+    "version": "1.2.2",
     "description": "Patch for zumiez website",
     "icons": {
         "48": "icon.png"
@@ -10,7 +10,8 @@
     "content_scripts": [
         {
             "matches": [
-                "https://www.zumiez.com/*"
+                "https://www.zumiez.com/*",
+                "https://www.zumiez.ca/*"
             ],
             "js": [
                 "script.js"
@@ -18,6 +19,7 @@
         }
     ],
     "host_permissions": [
-        "https://www.zumiez.com/"
+        "https://www.zumiez.com/",
+        "https://www.zumiez.ca/"
     ]
 }
