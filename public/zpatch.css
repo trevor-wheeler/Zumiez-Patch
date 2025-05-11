@@ -1,0 +1,10 @@
+.StoreCard-Title {
+    position: relative;
+}
+
+.store-num {
+    position: absolute;
+    right: 0;
+    top: 0;
+    font-size: 14px;
+}
