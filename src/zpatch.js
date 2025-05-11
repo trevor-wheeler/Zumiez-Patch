@@ -177,6 +177,14 @@ function packageDealCart() {
           item.addEventListener('click', () => {
             window.location.href = href;
           })
+
+          // Get SKU from the img source
+          const sku = item.querySelector('.Image-Image').src.match(/\d{6}/g)[0];
+          // Create SKU element and append it to the item
+          const skuElement = document.createElement('span');
+          skuElement.textContent = 'SKU: ' + sku;
+          skuElement.className = 'package-deal-cart-sku'
+          item.querySelector('.PackageDealWidgetItem-Option').append(skuElement);
         })
       }
     })
