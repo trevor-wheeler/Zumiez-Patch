@@ -239,12 +239,14 @@ function resetPage() {
 
       // If pagination is loaded
       if (!pagination.classList.contains('Pagination_isLoading')) {
-        // Try to click back button
+        // Try to navigate to the previous page
         try {
-          let prevBtn = popupContent.querySelector('.PaginationLink_isArrow[aria-label="Previous page"]');
-          prevBtn.click();
+          let currentPage = popupContent.querySelector('.PaginationLink_isCurrent');
+          let currentPageNum = parseInt(currentPage.textContent.trim());
+          let nextPage = popupContent.querySelector(`.PaginationLink[aria-label="Page ${currentPageNum - 1}"]`);
+          nextPage.click();
         }
-        // If back button is not clickable, clear interval and resolve promise
+        // If there is no previous page, clear interval and resolve promise
         catch (error) {
           unhideItems(popupContent);
           clearInterval(interval);
@@ -271,8 +273,10 @@ function submit(query) {
         // If no product was found, go to the next page and begin parsing again
         if (!productFound) {
           try {
-            let nextBtn = popupContent.querySelector('.PaginationLink_isArrow[aria-label="Next page"]');
-            nextBtn.click();
+            let currentPage = popupContent.querySelector('.PaginationLink_isCurrent');
+            let currentPageNum = parseInt(currentPage.textContent.trim());
+            let nextPage = popupContent.querySelector(`.PaginationLink[aria-label="Page ${currentPageNum + 1}"]`);
+            nextPage.click();
             submit(query);
           }
           // If there are no more pages and product was not found, log "No results"
